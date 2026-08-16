@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AudioSlim — Privacy Policy</title>
+<meta name="description" content="AudioSlim Privacy Policy — how we handle your data, your audio files, and your account." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --bg:            #0F0E1A;
+    --surface:       #181528;
+    --surface-hi:    #221E36;
+    --line:          #2E2945;
+    --text:          #FFFFFF;
+    --text-dim:      #9E98B8;
+    --text-faint:    #6B6488;
+    --lavender:      #9B86EB;
+    --sky:           #81C2F5;
+    --peach:         #F8C07A;
+    --coral:         #F6A09A;
+    --good:          #4ADE80;
+
+    --display: 'Sora', system-ui, sans-serif;
+    --body: 'Inter', system-ui, sans-serif;
+    --mono: 'JetBrains Mono', ui-monospace, monospace;
+
+    --max: 1120px;
+  }
+
+  *{ margin:0; padding:0; box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+
+  body{
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--body);
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    html{ scroll-behavior:auto; }
+    *{ animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+  }
+
+  a{ color: var(--sky); text-decoration:none; }
+  a:hover{ text-decoration: underline; }
+  a:focus-visible, button:focus-visible, input:focus-visible{
+    outline: 2px solid var(--peach);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  ::selection{ background: var(--lavender); color: #0F0E1A; }
+
+  /* ---------- ambient background ---------- */
+  .ambient{
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background:
+      radial-gradient(60vw 60vw at 85% -10%, rgba(155,134,235,0.16), transparent 60%),
+      radial-gradient(50vw 50vw at -10% 30%, rgba(129,194,245,0.10), transparent 60%),
+      radial-gradient(40vw 40vw at 50% 110%, rgba(248,192,122,0.08), transparent 60%);
+  }
+
+  .grain{
+    position: fixed;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0.035;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* ---------- top bar ---------- */
+  .topbar{
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    display:flex;
+    align-items:center;
+    justify-content: space-between;
+    padding: 18px clamp(20px, 5vw, 56px);
+    background: rgba(15,14,26,0.72);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--line);
+  }
+  .brand{
+    display:flex; align-items:center; gap:10px;
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: 16px;
+    letter-spacing: 0.01em;
+  }
+  .brand-mark{
+    width: 30px; height:30px;
+    border-radius: 9px;
+    display:grid; place-items:center;
+    background: linear-gradient(135deg, var(--lavender), var(--sky));
+    flex-shrink:0;
+  }
+  .brand-mark svg{ width:16px; height:16px; }
+  .topbar-right{
+    display:flex; align-items:center; gap: 18px;
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--text-dim);
+  }
+  .topbar-right .dot{ width:6px; height:6px; border-radius:50%; background: var(--good); display:inline-block; box-shadow: 0 0 8px var(--good); margin-right:6px; }
+  .back-link{
+    font-family: var(--body);
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text);
+    border: 1px solid var(--line);
+    padding: 7px 14px;
+    border-radius: 999px;
+    transition: border-color .2s ease, background .2s ease;
+  }
+  .back-link:hover{ border-color: var(--lavender); background: var(--surface); text-decoration:none; }
+
+  /* ---------- hero ---------- */
+  .hero{
+    position: relative;
+    z-index: 2;
+    padding: clamp(64px, 10vw, 110px) clamp(20px, 5vw, 56px) clamp(40px, 6vw, 70px);
+    max-width: var(--max);
+    margin: 0 auto;
+  }
+  .eyebrow{
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--peach);
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom: 22px;
+    opacity: 0;
+    animation: rise .7s ease forwards;
+  }
+  .eyebrow .rule{ width: 34px; height:1px; background: var(--peach); opacity:0.6; }
+
+  .hero h1{
+    font-family: var(--display);
+    font-weight: 800;
+    font-size: clamp(40px, 7vw, 76px);
+    line-height: 1.02;
+    letter-spacing: -0.02em;
+    max-width: 16ch;
+    opacity: 0;
+    animation: rise .8s ease forwards;
+    animation-delay: .08s;
+  }
+  .hero h1 .grad{
+    background: linear-gradient(100deg, var(--lavender), var(--sky) 55%, var(--peach));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .hero-sub{
+    margin-top: 22px;
+    max-width: 56ch;
+    font-size: clamp(16px, 2vw, 18px);
+    color: var(--text-dim);
+    opacity: 0;
+    animation: rise .8s ease forwards;
+    animation-delay: .18s;
+  }
+
+  .hero-meta{
+    margin-top: 32px;
+    display:flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    opacity: 0;
+    animation: rise .8s ease forwards;
+    animation-delay: .28s;
+  }
+  .chip{
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--text-dim);
+    border: 1px solid var(--line);
+    background: rgba(255,255,255,0.02);
+    padding: 7px 12px;
+    border-radius: 999px;
+  }
+  .chip b{ color: var(--text); font-weight: 500; }
+
+  @keyframes rise{
+    from{ opacity:0; transform: translateY(14px); }
+    to{ opacity:1; transform: translateY(0); }
+  }
+
+  /* ---------- waveform ---------- */
+  .waveform-wrap{
+    margin-top: 46px;
+    height: 108px;
+    display:flex;
+    align-items:center;
+    gap: 3px;
+    opacity: 0;
+    animation: rise 1s ease forwards;
+    animation-delay: .4s;
+  }
+  .bar{
+    flex: 1 1 auto;
+    max-width: 6px;
+    min-width: 2px;
+    border-radius: 3px;
+    background: linear-gradient(180deg, var(--lavender), var(--sky));
+    transform-origin: center;
+    animation: wave 2.4s ease-in-out infinite;
+  }
+
+  @keyframes wave{
+    0%, 100%{ transform: scaleY(var(--h1)); }
+    50%{ transform: scaleY(var(--h2)); }
+  }
+
+  /* ---------- at-a-glance ---------- */
+  .glance{
+    max-width: var(--max);
+    margin: 0 auto;
+    padding: 10px clamp(20px, 5vw, 56px) clamp(40px, 6vw, 70px);
+    position: relative;
+    z-index: 2;
+    display:grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+  }
+  @media (max-width: 880px){ .glance{ grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 520px){ .glance{ grid-template-columns: 1fr; } }
+
+  .glance-card{
+    background: linear-gradient(180deg, var(--surface), var(--surface-hi));
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 20px;
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  .glance-card.reveal{ animation: rise .6s ease forwards; }
+  .glance-icon{
+    width: 34px; height:34px;
+    border-radius: 10px;
+    display:grid; place-items:center;
+    margin-bottom: 14px;
+  }
+  .glance-icon svg{ width:17px; height:17px; }
+  .glance-card h3{
+    font-family: var(--display);
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+  .glance-card p{ font-size: 13px; color: var(--text-dim); }
+
+  /* ---------- layout: sidebar + content ---------- */
+  .layout{
+    max-width: var(--max);
+    margin: 0 auto;
+    padding: 20px clamp(20px, 5vw, 56px) 120px;
+    display:grid;
+    grid-template-columns: 220px 1fr;
+    gap: 56px;
+    position: relative;
+    z-index: 2;
+  }
+  @media (max-width: 860px){
+    .layout{ grid-template-columns: 1fr; }
+    .toc{ display:none; }
+  }
+
+  .toc{
+    position: sticky;
+    top: 90px;
+    align-self: start;
+    max-height: calc(100vh - 120px);
+    overflow-y: auto;
+  }
+  .toc-label{
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+    margin-bottom: 14px;
+  }
+  .toc-list{ list-style:none; display:flex; flex-direction:column; gap: 2px; }
+  .toc-list a{
+    display:flex;
+    align-items:center;
+    gap: 10px;
+    font-size: 13px;
+    color: var(--text-dim);
+    padding: 8px 10px;
+    border-radius: 8px;
+    border-left: 2px solid transparent;
+    transition: color .2s ease, border-color .2s ease, background .2s ease;
+  }
+  .toc-list a:hover{ color: var(--text); text-decoration:none; background: rgba(255,255,255,0.03); }
+  .toc-list a .num{ font-family: var(--mono); font-size: 11px; color: var(--text-faint); width: 18px; }
+  .toc-list a.active{
+    color: var(--text);
+    border-left-color: var(--lavender);
+    background: rgba(155,134,235,0.08);
+  }
+  .toc-list a.active .num{ color: var(--lavender); }
+
+  /* ---------- content sections ---------- */
+  .content{ max-width: 720px; }
+
+  section.policy-section{
+    padding-top: 46px;
+    padding-bottom: 8px;
+    border-top: 1px solid var(--line);
+    margin-top: 46px;
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  section.policy-section:first-child{ border-top:none; margin-top:0; padding-top:0; }
+  section.policy-section.reveal{ animation: rise .7s ease forwards; }
+
+  .sec-head{
+    display:flex;
+    align-items: baseline;
+    gap: 12px;
+    margin-bottom: 18px;
+  }
+  .sec-num{
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--lavender);
+  }
+  section.policy-section h2{
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: clamp(22px, 3vw, 28px);
+    letter-spacing: -0.01em;
+  }
+  section.policy-section h3{
+    font-family: var(--display);
+    font-weight: 600;
+    font-size: 16px;
+    margin: 26px 0 10px;
+    color: var(--text);
+  }
+  section.policy-section p{
+    color: var(--text-dim);
+    font-size: 15px;
+    margin-bottom: 14px;
+  }
+  section.policy-section p strong{ color: var(--text); font-weight: 600; }
+  section.policy-section ul{
+    margin: 0 0 14px 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  section.policy-section ul li{
+    position: relative;
+    padding-left: 20px;
+    color: var(--text-dim);
+    font-size: 14.5px;
+  }
+  section.policy-section ul li::before{
+    content: "";
+    position: absolute;
+    left: 0; top: 8px;
+    width: 6px; height:6px;
+    border-radius: 2px;
+    background: var(--sky);
+  }
+  section.policy-section ul li strong{ color: var(--text); font-weight: 600; }
+
+  .callout{
+    margin: 18px 0;
+    padding: 16px 18px;
+    border-radius: 12px;
+    border: 1px solid rgba(74,222,128,0.25);
+    background: rgba(74,222,128,0.06);
+    display:flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  .callout svg{ flex-shrink:0; margin-top:2px; width:16px; height:16px; }
+  .callout p{ margin:0; color: var(--text); font-size: 14px; }
+  .callout p span{ color: var(--text-dim); }
+
+  /* data table */
+  .data-table{
+    width: 100%;
+    border-collapse: collapse;
+    margin: 10px 0 22px;
+    font-size: 13.5px;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .data-table thead th{
+    text-align:left;
+    font-family: var(--mono);
+    font-weight: 500;
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+    background: var(--surface);
+    padding: 12px 14px;
+    border-bottom: 1px solid var(--line);
+  }
+  .data-table tbody td{
+    padding: 13px 14px;
+    border-bottom: 1px solid var(--line);
+    color: var(--text-dim);
+    vertical-align: top;
+  }
+  .data-table tbody tr:last-child td{ border-bottom:none; }
+  .data-table tbody td:first-child{ color: var(--text); font-weight: 600; white-space: nowrap; }
+  .pill{
+    display:inline-block;
+    font-family: var(--mono);
+    font-size: 10.5px;
+    padding: 3px 8px;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    color: var(--text-dim);
+  }
+  .pill.on-device{ border-color: rgba(74,222,128,0.35); color: var(--good); }
+
+  @media (max-width: 620px){
+    .data-table{ font-size: 12.5px; }
+    .data-table thead{ display:none; }
+    .data-table tbody tr{ display:block; padding: 12px 0; border-bottom: 1px solid var(--line); }
+    .data-table tbody td{ display:block; border:none; padding: 3px 4px; }
+    .data-table tbody td:first-child{ margin-bottom: 4px; }
+  }
+
+  /* permission cards */
+  .perm-grid{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin: 10px 0 22px;
+  }
+  @media (max-width: 560px){ .perm-grid{ grid-template-columns: 1fr; } }
+  .perm-card{
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 14px 16px;
+    background: rgba(255,255,255,0.015);
+  }
+  .perm-card .perm-name{
+    font-family: var(--mono);
+    font-size: 11.5px;
+    color: var(--peach);
+    margin-bottom: 6px;
+  }
+  .perm-card p{ font-size: 13px; margin:0; color: var(--text-dim); }
+
+  /* rights grid */
+  .rights-grid{
+    display:grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin: 10px 0 22px;
+  }
+  @media (max-width: 560px){ .rights-grid{ grid-template-columns: 1fr; } }
+  .right-item{
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 16px;
+  }
+  .right-item .letter{
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: 18px;
+    background: linear-gradient(135deg, var(--lavender), var(--sky));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    margin-bottom: 8px;
+    display:block;
+  }
+  .right-item h4{ font-family: var(--display); font-size: 14px; margin-bottom: 4px; }
+  .right-item p{ font-size: 13px; color: var(--text-dim); margin:0; }
+
+  /* contact */
+  .contact-card{
+    margin-top: 8px;
+    border-radius: 18px;
+    padding: 28px;
+    background: linear-gradient(135deg, rgba(155,134,235,0.10), rgba(129,194,245,0.06));
+    border: 1px solid rgba(155,134,235,0.25);
+  }
+  .contact-card h3{ margin: 0 0 8px; font-family: var(--display); font-size: 18px; }
+  .contact-card p{ color: var(--text-dim); font-size: 14px; margin-bottom: 16px; }
+  .contact-btn{
+    display:inline-flex;
+    align-items:center;
+    gap: 8px;
+    background: var(--text);
+    color: var(--bg);
+    font-family: var(--body);
+    font-weight: 700;
+    font-size: 14px;
+    padding: 11px 20px;
+    border-radius: 999px;
+    transition: transform .15s ease, box-shadow .15s ease;
+  }
+  .contact-btn:hover{
+    text-decoration:none;
+    transform: translateY(-1px);
+    box-shadow: 0 8px 24px rgba(155,134,235,0.25);
+  }
+
+  /* footer */
+  footer{
+    position: relative;
+    z-index: 2;
+    border-top: 1px solid var(--line);
+    padding: 28px clamp(20px, 5vw, 56px);
+    display:flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items:center;
+    justify-content: space-between;
+    font-size: 12.5px;
+    color: var(--text-faint);
+    font-family: var(--mono);
+  }
+  footer a{ color: var(--text-faint); }
+  footer a:hover{ color: var(--text-dim); }
+
+  /* back to top */
+  .totop{
+    position: fixed;
+    right: 24px;
+    bottom: 24px;
+    z-index: 50;
+    width: 42px; height:42px;
+    border-radius: 50%;
+    background: var(--surface-hi);
+    border: 1px solid var(--line);
+    display:grid; place-items:center;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(8px);
+    transition: opacity .25s ease, transform .25s ease, border-color .2s ease;
+  }
+  .totop.show{ opacity:1; pointer-events:auto; transform: translateY(0); }
+  .totop:hover{ border-color: var(--lavender); }
+  .totop svg{ width:16px; height:16px; }
+</style>
+</head>
+<body>
+
+<div class="ambient"></div>
+<div class="grain"></div>
+
+<div class="topbar">
+  <div class="brand">
+    <span class="brand-mark">
+      <svg viewBox="0 0 24 24" fill="none"><path d="M4 10v4M8 6v12M12 3v18M16 6v12M20 10v4" stroke="#0F0E1A" stroke-width="2.2" stroke-linecap="round"/></svg>
+    </span>
+    AudioSlim
+  </div>
+  <div class="topbar-right">
+    <span><span class="dot"></span>Active policy</span>
+  </div>
+</div>
+
+<header class="hero">
+  <div class="eyebrow"><span class="rule"></span>Privacy Policy</div>
+  <h1>Your audio never<br/>leaves <span class="grad">your device.</span></h1>
+  <p class="hero-sub">
+    This page explains, in plain language, exactly what AudioSlim collects, why, and what you
+    control — starting with the one thing that matters most: your audio files are compressed
+    entirely on your phone.
+  </p>
+  <div class="hero-meta">
+    <span class="chip">Effective date — <b>August 16, 2026</b></span>
+    <span class="chip">App — <b>AudioSlim</b></span>
+    <span class="chip">Package — <b>com.lunexisstudios.audioslim.mp3app</b></span>
+  </div>
+
+  <div class="waveform-wrap" id="waveform" aria-hidden="true"></div>
+</header>
+
+<section class="glance">
+  <div class="glance-card">
+    <div class="glance-icon" style="background:rgba(74,222,128,0.14);">
+      <svg viewBox="0 0 24 24" fill="none"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z" stroke="#4ADE80" stroke-width="1.8" stroke-linejoin="round"/></svg>
+    </div>
+    <h3>Audio stays local</h3>
+    <p>Compression runs on-device via Android's MediaCodec. No audio bytes are uploaded to any server.</p>
+  </div>
+  <div class="glance-card">
+    <div class="glance-icon" style="background:rgba(155,134,235,0.14);">
+      <svg viewBox="0 0 24 24" fill="none"><path d="M4 7h16M4 12h16M4 17h10" stroke="#9B86EB" stroke-width="1.8" stroke-linecap="round"/></svg>
+    </div>
+    <h3>We don't sell data</h3>
+    <p>We never sell your personal information to third parties, under any circumstance.</p>
+  </div>
+  <div class="glance-card">
+    <div class="glance-icon" style="background:rgba(129,194,245,0.14);">
+      <svg viewBox="0 0 24 24" fill="none"><path d="M12 15a3 3 0 100-6 3 3 0 000 6z" stroke="#81C2F5" stroke-width="1.8"/><path d="M4 12c1.6-3.8 5-6 8-6s6.4 2.2 8 6c-1.6 3.8-5 6-8 6s-6.4-2.2-8-6z" stroke="#81C2F5" stroke-width="1.8"/></svg>
+    </div>
+    <h3>Ads are consent-based</h3>
+    <p>In the EEA and UK, we ask before showing personalized ads, through Google's consent flow.</p>
+  </div>
+  <div class="glance-card">
+    <div class="glance-icon" style="background:rgba(248,192,122,0.16);">
+      <svg viewBox="0 0 24 24" fill="none"><path d="M9 12l2 2 4-4" stroke="#F8C07A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z" stroke="#F8C07A" stroke-width="1.8" stroke-linejoin="round"/></svg>
+    </div>
+    <h3>You can delete it all</h3>
+    <p>Delete your account and its data any time from Settings, or by contacting us directly.</p>
+  </div>
+</section>
+
+<div class="layout">
+  <nav class="toc" aria-label="Table of contents">
+    <div class="toc-label">On this page</div>
+    <ul class="toc-list">
+      <li><a href="#collect"><span class="num">01</span>Information we collect</a></li>
+      <li><a href="#audio"><span class="num">02</span>How your audio is handled</a></li>
+      <li><a href="#third-party"><span class="num">03</span>Third-party services</a></li>
+      <li><a href="#permissions"><span class="num">04</span>App permissions</a></li>
+      <li><a href="#ads"><span class="num">05</span>Advertising &amp; consent</a></li>
+      <li><a href="#retention"><span class="num">06</span>Retention &amp; deletion</a></li>
+      <li><a href="#children"><span class="num">07</span>Children's privacy</a></li>
+      <li><a href="#rights"><span class="num">08</span>Your rights</a></li>
+      <li><a href="#security"><span class="num">09</span>Security</a></li>
+      <li><a href="#changes"><span class="num">10</span>Changes</a></li>
+      <li><a href="#contact"><span class="num">11</span>Contact us</a></li>
+    </ul>
+  </nav>
+
+  <div class="content">
+
+    <section class="policy-section" id="collect">
+      <div class="sec-head"><span class="sec-num">01</span><h2>Information we collect</h2></div>
+      <p>We collect the smallest set of information needed to run your account, keep the app
+      working, and keep it free for people who don't want to pay. Here's the full breakdown:</p>
+
+      <table class="data-table">
+        <thead>
+          <tr><th>Category</th><th>What it includes</th><th>Where it's stored</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Account info</td>
+            <td>Email address and display name, if you create an account. You may also continue as a Guest, which creates an anonymous account with no email.</td>
+            <td><span class="pill">Firebase Auth</span></td>
+          </tr>
+          <tr>
+            <td>Compression history</td>
+            <td>File names, sizes, formats, and bitrate settings for files you've compressed.</td>
+            <td><span class="pill">On-device, and synced to your account if signed in</span></td>
+          </tr>
+          <tr>
+            <td>App preferences</td>
+            <td>Theme, default bitrate, language, and onboarding status.</td>
+            <td><span class="pill on-device">On-device only</span></td>
+          </tr>
+          <tr>
+            <td>Purchase status</td>
+            <td>Whether you hold an active Pro subscription or lifetime unlock. Payment details (card numbers etc.) are handled entirely by Google Play and never reach us.</td>
+            <td><span class="pill">Google Play Billing</span></td>
+          </tr>
+          <tr>
+            <td>Advertising identifiers</td>
+            <td>Your Android Advertising ID, used to serve and measure ads — only after consent where required.</td>
+            <td><span class="pill">Google AdMob</span></td>
+          </tr>
+          <tr>
+            <td>Diagnostic data</td>
+            <td>Crash reports and stack traces, to help us fix bugs. These don't contain your audio content.</td>
+            <td><span class="pill">Firebase Crashlytics</span></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="callout">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 8v5M12 16h.01" stroke="#4ADE80" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="12" r="9" stroke="#4ADE80" stroke-width="1.6"/></svg>
+        <p><span>We never see, hear, or store the contents of your audio files.</span> The waveform previews you see in the app are generated and rendered entirely on your device.</p>
+      </div>
+    </section>
+
+    <section class="policy-section" id="audio">
+      <div class="sec-head"><span class="sec-num">02</span><h2>How your audio is handled</h2></div>
+      <p>AudioSlim compresses audio using Android's built-in <strong>MediaCodec</strong> engine,
+      running as a foreground service on your phone's own processor. The full lifecycle looks
+      like this:</p>
+      <ul>
+        <li><strong>You pick a file</strong> — through the system file picker or your device's audio library, which you explicitly grant access to.</li>
+        <li><strong>It's decoded and re-encoded locally</strong> — no network connection is required for compression itself, and no audio data is transmitted anywhere during this step.</li>
+        <li><strong>The result is saved to your device</strong> — in the app's private storage, ready for you to export or share manually wherever you choose.</li>
+      </ul>
+      <p>Because processing never leaves your device, we have no visibility into what you compress, how often, or what the files contain.</p>
+    </section>
+
+    <section class="policy-section" id="third-party">
+      <div class="sec-head"><span class="sec-num">03</span><h2>Third-party services</h2></div>
+      <p>AudioSlim is built on a small number of well-known infrastructure providers. Each
+      one only receives the minimum data it needs to do its job:</p>
+      <table class="data-table">
+        <thead><tr><th>Service</th><th>Purpose</th></tr></thead>
+        <tbody>
+          <tr><td>Firebase Authentication</td><td>Creates and manages your account (email/password or anonymous guest sign-in).</td></tr>
+          <tr><td>Cloud Firestore</td><td>Syncs account-level settings tied to your user ID. Access is restricted so only you can read or write your own records.</td></tr>
+          <tr><td>Firebase Crashlytics</td><td>Collects crash and error reports to help us find and fix bugs.</td></tr>
+          <tr><td>Google AdMob</td><td>Serves banner, interstitial, and rewarded ads to free-tier users, subject to your consent choices.</td></tr>
+          <tr><td>Google Play Billing</td><td>Processes Pro subscription and lifetime purchases. We never receive your card details.</td></tr>
+        </tbody>
+      </table>
+      <p>Each provider processes data under its own privacy terms — see <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google's Privacy Policy</a> for how Firebase, AdMob, and Play Billing handle information on their side.</p>
+    </section>
+
+    <section class="policy-section" id="permissions">
+      <div class="sec-head"><span class="sec-num">04</span><h2>App permissions</h2></div>
+      <p>AudioSlim asks for a small set of Android permissions, each tied to a specific,
+      visible feature:</p>
+      <div class="perm-grid">
+        <div class="perm-card">
+          <div class="perm-name">READ_MEDIA_AUDIO</div>
+          <p>Lets you browse and select audio files from your device to compress.</p>
+        </div>
+        <div class="perm-card">
+          <div class="perm-name">POST_NOTIFICATIONS</div>
+          <p>Shows compression progress and "done" notifications. Fully optional — the app works without it.</p>
+        </div>
+        <div class="perm-card">
+          <div class="perm-name">FOREGROUND_SERVICE</div>
+          <p>Keeps compression running reliably if you switch apps mid-task.</p>
+        </div>
+        <div class="perm-card">
+          <div class="perm-name">INTERNET / AD_ID</div>
+          <p>Used only for sign-in, syncing purchase status, and — with consent — showing ads.</p>
+        </div>
+      </div>
+      <p>You can review or revoke any of these at any time from your device's Settings → Apps → AudioSlim → Permissions.</p>
+    </section>
+
+    <section class="policy-section" id="ads">
+      <div class="sec-head"><span class="sec-num">05</span><h2>Advertising &amp; consent</h2></div>
+      <p>Free-tier use of AudioSlim is supported by ads served through Google AdMob. Pro
+      subscribers never see ads.</p>
+      <p>If you're located in the <strong>European Economic Area, UK, or Switzerland</strong>,
+      we show a consent form — powered by Google's User Messaging Platform — before any
+      personalized ad is requested. You can change your choice at any time from
+      <strong>Settings → Privacy → Ad Preferences</strong>. Outside these regions, ads may be
+      shown based on standard AdMob defaults, and you can still opt out of ad personalization
+      through your device's Google Ads Settings.</p>
+    </section>
+
+    <section class="policy-section" id="retention">
+      <div class="sec-head"><span class="sec-num">06</span><h2>Retention &amp; deletion</h2></div>
+      <p>Your cached files and app preferences live only on your device and are removed
+      automatically when you clear the app's storage or uninstall it — no action needed on
+      our end. If you use AudioSlim as a Guest, your compression history stays local-only
+      too, and is removed the same way.</p>
+      <p>If you sign in, your compression history (file names, sizes, formats, and bitrate
+      settings — never the audio itself) is also synced to your account so it's available
+      across devices. Account data (email, display name, purchase status, and synced history)
+      is kept for as long as your account is active. You can delete your account at any time
+      from <strong>Settings → Account → Delete Account</strong>, which permanently removes your
+      Firebase Authentication, Firestore records, and synced history within 30 days. You can
+      also request deletion by emailing us directly — see Contact below.</p>
+    </section>
+
+    <section class="policy-section" id="children">
+      <div class="sec-head"><span class="sec-num">07</span><h2>Children's privacy</h2></div>
+      <p>AudioSlim is not directed at children under 13 (or the equivalent minimum age in your
+      region), and we do not knowingly collect personal information from them. If you believe
+      a child has provided us with personal data, contact us and we'll remove it promptly.</p>
+    </section>
+
+    <section class="policy-section" id="rights">
+      <div class="sec-head"><span class="sec-num">08</span><h2>Your rights</h2></div>
+      <p>Depending on where you live, you may have some or all of the following rights over
+      your personal data:</p>
+      <div class="rights-grid">
+        <div class="right-item"><span class="letter">Aa</span><h4>Access</h4><p>Request a copy of the personal data we hold about you.</p></div>
+        <div class="right-item"><span class="letter">Bb</span><h4>Correction</h4><p>Ask us to fix inaccurate or incomplete information.</p></div>
+        <div class="right-item"><span class="letter">Cc</span><h4>Deletion</h4><p>Ask us to erase your account and associated data.</p></div>
+        <div class="right-item"><span class="letter">Dd</span><h4>Portability</h4><p>Receive your data in a structured, commonly-used format.</p></div>
+        <div class="right-item"><span class="letter">Ee</span><h4>Objection</h4><p>Opt out of personalized advertising at any time.</p></div>
+        <div class="right-item"><span class="letter">Ff</span><h4>Withdraw consent</h4><p>Revoke previously given consent without affecting past processing.</p></div>
+      </div>
+      <p>To exercise any of these, reach out through the contact details below — we'll respond within 30 days.</p>
+    </section>
+
+    <section class="policy-section" id="security">
+      <div class="sec-head"><span class="sec-num">09</span><h2>Security</h2></div>
+      <p>Account data is protected using Firebase's security infrastructure, including
+      encryption in transit (TLS) and access rules that restrict every record to its owner.
+      No method of transmission or storage is 100% secure, but we work to protect your
+      information using industry-standard practices.</p>
+    </section>
+
+    <section class="policy-section" id="changes">
+      <div class="sec-head"><span class="sec-num">10</span><h2>Changes to this policy</h2></div>
+      <p>We may update this policy as AudioSlim evolves. If a change is material, we'll
+      notify you in-app before it takes effect. The "Effective date" at the top of this page
+      always reflects the latest version.</p>
+    </section>
+
+    <section class="policy-section" id="contact">
+      <div class="sec-head"><span class="sec-num">11</span><h2>Contact us</h2></div>
+      <p>Questions about this policy, or want to exercise one of your rights? We're happy to
+      help.</p>
+      <div class="contact-card">
+        <h3>Get in touch</h3>
+        <p>Lunexis Studios — AudioSlim<br/>We aim to respond within 3 business days.</p>
+        <a class="contact-btn" href="mailto:lunexisstudio.support@gmail.com">
+          lunexisstudio.support@gmail.com
+          <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#0F0E1A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+    </section>
+
+  </div>
+</div>
+
+<footer>
+  <span>© 2026 Lunexis Studios. All rights reserved.</span>
+  <span>AudioSlim · com.lunexisstudios.audioslim.mp3app</span>
+</footer>
+
+<button class="totop" id="totop" aria-label="Back to top">
+  <svg viewBox="0 0 24 24" fill="none"><path d="M12 19V5M5 12l7-7 7 7" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+</button>
+
+<script>
+  // Build animated waveform bars
+  (function(){
+    var wrap = document.getElementById('waveform');
+    var count = window.innerWidth < 620 ? 46 : 84;
+    for (var i = 0; i < count; i++){
+      var bar = document.createElement('div');
+      bar.className = 'bar';
+      var h1 = (0.15 + Math.random() * 0.85).toFixed(2);
+      var h2 = (0.15 + Math.random() * 0.85).toFixed(2);
+      bar.style.setProperty('--h1', h1);
+      bar.style.setProperty('--h2', h2);
+      bar.style.animationDelay = (Math.random() * 2).toFixed(2) + 's';
+      bar.style.animationDuration = (1.8 + Math.random() * 1.4).toFixed(2) + 's';
+      bar.style.height = '100%';
+      wrap.appendChild(bar);
+    }
+  })();
+
+  // Scroll reveal for cards and sections
+  (function(){
+    var targets = document.querySelectorAll('.glance-card, .policy-section');
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry, idx){
+        if (entry.isIntersecting){
+          var el = entry.target;
+          var delay = el.classList.contains('glance-card') ? (idx % 4) * 70 : 0;
+          setTimeout(function(){ el.classList.add('reveal'); }, delay);
+          io.unobserve(el);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+    targets.forEach(function(t){ io.observe(t); });
+  })();
+
+  // Table of contents active state
+  (function(){
+    var links = document.querySelectorAll('.toc-list a');
+    var sections = Array.prototype.map.call(links, function(a){
+      return document.querySelector(a.getAttribute('href'));
+    });
+    function onScroll(){
+      var pos = window.scrollY + 140;
+      var activeIdx = 0;
+      sections.forEach(function(sec, i){
+        if (sec && sec.offsetTop <= pos) activeIdx = i;
+      });
+      links.forEach(function(a, i){ a.classList.toggle('active', i === activeIdx); });
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  })();
+
+  // Back to top button
+  (function(){
+    var btn = document.getElementById('totop');
+    window.addEventListener('scroll', function(){
+      btn.classList.toggle('show', window.scrollY > 600);
+    }, { passive: true });
+    btn.addEventListener('click', function(){
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  })();
+</script>
+
+</body>
+</html>
