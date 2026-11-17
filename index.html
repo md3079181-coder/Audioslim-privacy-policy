@@ -594,7 +594,7 @@
     entirely on your phone.
   </p>
   <div class="hero-meta">
-    <span class="chip">Effective date — <b>August 16, 2026</b></span>
+    <span class="chip">Effective date — <b>November 17, 2026</b></span>
     <span class="chip">App — <b>AudioSlim</b></span>
     <span class="chip">Package — <b>com.lunexisstudios.audioslim.mp3app</b></span>
   </div>
@@ -676,7 +676,7 @@
           <tr>
             <td>App preferences</td>
             <td>Theme, default bitrate, language, and onboarding status.</td>
-            <td><span class="pill on-device">On-device only</span></td>
+            <td><span class="pill">On-device, and synced to your account if signed in</span></td>
           </tr>
           <tr>
             <td>Purchase status</td>
@@ -692,6 +692,11 @@
             <td>Diagnostic data</td>
             <td>Crash reports and stack traces, to help us fix bugs. These don't contain your audio content.</td>
             <td><span class="pill">Firebase Crashlytics</span></td>
+          </tr>
+          <tr>
+            <td>Usage analytics</td>
+            <td>Anonymous app interactions, screen views, and non-personal compression metrics (such as selected format, bitrate, and savings percentage) to understand feature usage and improve the app. Never includes audio content or file names.</td>
+            <td><span class="pill">Firebase Analytics</span></td>
           </tr>
         </tbody>
       </table>
@@ -712,7 +717,7 @@
         <li><strong>It's decoded and re-encoded locally</strong> — no network connection is required for compression itself, and no audio data is transmitted anywhere during this step.</li>
         <li><strong>The result is saved to your device</strong> — in the app's private storage, ready for you to export or share manually wherever you choose.</li>
       </ul>
-      <p>Because processing never leaves your device, we have no visibility into what you compress, how often, or what the files contain.</p>
+      <p>Because processing never leaves your device, we never have access to your audio content, file names, or what your files contain.</p>
     </section>
 
     <section class="policy-section" id="third-party">
@@ -725,6 +730,7 @@
           <tr><td>Firebase Authentication</td><td>Creates and manages your account (email/password or anonymous guest sign-in).</td></tr>
           <tr><td>Cloud Firestore</td><td>Syncs account-level settings tied to your user ID. Access is restricted so only you can read or write your own records.</td></tr>
           <tr><td>Firebase Crashlytics</td><td>Collects crash and error reports to help us find and fix bugs.</td></tr>
+          <tr><td>Firebase Analytics</td><td>Collects anonymized usage statistics (screen views, feature interactions, and format/bitrate preferences) to help us improve app stability and user experience.</td></tr>
           <tr><td>Google AdMob</td><td>Serves banner, interstitial, and rewarded ads to free-tier users, subject to your consent choices.</td></tr>
           <tr><td>Google Play Billing</td><td>Processes Pro subscription and lifetime purchases. We never receive your card details.</td></tr>
         </tbody>
@@ -751,7 +757,7 @@
         </div>
         <div class="perm-card">
           <div class="perm-name">INTERNET / AD_ID</div>
-          <p>Used only for sign-in, syncing purchase status, and — with consent — showing ads.</p>
+          <p>Used only for sign-in, syncing purchase status, analytics, and — with consent — showing ads.</p>
         </div>
       </div>
       <p>You can review or revoke any of these at any time from your device's Settings → Apps → AudioSlim → Permissions.</p>
